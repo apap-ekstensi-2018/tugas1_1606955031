@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>View All Students</title>
+        <script type="text/javascript" charset="utf8" src="/js/DataTables/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/DataTables/jquery.dataTables.min.css"></link>
+		<script type="text/javascript" charset="utf8" src="/js/DataTables/jquery.dataTables.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"></link>
+		<script> 
+		$(document).ready( function () {
+		    $('#table_id').DataTable();
+		} );
+		</script>
+    </head>
+    <body>
+    	<div th:replace="fragments/fragment :: header"></div>
+        <h1>All Students</h1>
+        
+        <table id="table_id" class="table table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>NPM</th>
+            <th>Name</th>
+            <th>GPA</th>
+            <th>Cum laude</th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<div th:each="student,iterationStatus: ${students}">
+    		
+        <tr>
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${student.npm}"></td>
+            <td th:text="${student.name}"></td>
+            <td th:text="${student.gpa}"></td>
+            <td th:text="${student.gpa>= 3.49 ? 'Cum Laude!' : 'Sangat Memuaskan!'}"></td>
+            <td> <a th:href="'/student/delete/' +${student.npm}"> <button type="button" class="btn btn-danger" name="action" value="delete">Delete</button></a> </td>
+            <td> <a th:href="'/student/update/' +${student.npm}"> <button type="button" class="btn btn-primary" name="action" value="update">Update</button></a></td>
+        	
+        </tr>
+        </div>
+    </tbody>
+</table>
+        
+    </body>
+</html>
